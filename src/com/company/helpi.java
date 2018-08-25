@@ -1,11 +1,51 @@
 package com.company;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 
 /**
  * Created by Elad Or on 17/08/2018.
  */
 public class helpi {
+
+    public class Node {
+        int data;
+        Node left;
+        Node right;
+
+        public Node(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+
+    }
+
+    public void inOrderPrintMe(Node node) {
+        if (node != null) {
+            inOrderPrintMe(node.left);
+            System.out.println(node.data);
+            inOrderPrintMe(node.right);
+        }
+    }
+
+    public void preOrderPrintMe(Node node) {
+        if (node != null) {
+            System.out.println(node.data);
+            preOrderPrintMe(node.left);
+            preOrderPrintMe(node.right);
+        }
+    }
+
+    public void postOrderPrintMe(Node node) {
+        if (node != null) {
+
+            postOrderPrintMe(node.left);
+            postOrderPrintMe(node.right);
+            System.out.println(node.data);
+        }
+    }
+
     public boolean isqunic(String str) {
         Hashtable<Object, Object> hash = new Hashtable<>();
         char[] charArray = str.toCharArray();
@@ -168,38 +208,84 @@ public class helpi {
         return compi.length() > str.length() ? compi : ss;
     }
 
-    public void spinTheMatrix(int[][] mat)
-    {
+    public void spinTheMatrix(int[][] mat) {
         int[][] matNew = new int[mat.length][mat.length];
-        int matiSize = mat.length-1;
+        int matiSize = mat.length - 1;
         for (int i = 0; i < mat.length; i++) {
-            for (int j = 0; j <mat.length ; j++) {
-                matNew[i][j]= mat[matiSize-j][i];
+            for (int j = 0; j < mat.length; j++) {
+                matNew[i][j] = mat[matiSize - j][i];
             }
         }
         pritiMaxi(matNew);
 
     }
 
-    public void pritiMaxi(int[][] mat)
-    {
+    public void pritiMaxi(int[][] mat) {
         System.out.println();
         for (int i = 0; i < mat.length; i++) {
-            for (int j = 0; j <mat.length ; j++) {
-                System.out.print(mat[mat.length-1-i][j]);
+            for (int j = 0; j < mat.length; j++) {
+                System.out.print(mat[mat.length - 1 - i][j]);
             }
             System.out.println();
         }
     }
-    public void priti(int[][] mat)
-    {
+
+    public void priti(int[][] mat) {
         System.out.println();
         for (int i = 0; i < mat.length; i++) {
-            for (int j = 0; j <mat.length ; j++) {
+            for (int j = 0; j < mat.length; j++) {
                 System.out.print(mat[i][j]);
             }
             System.out.println();
         }
     }
+
+    public Node instertTbTree(Node node, int data) {
+
+        if (node == null) {
+            node = new Node(data);
+            return node;
+        }
+        if (data > node.data)
+            node.right = instertTbTree(node.right, data);
+        if (data < node.data)
+            node.left = instertTbTree(node.left, data);
+        return node;
+    }
+
+    void swap(int a, int b) {
+        a = a ^ b;
+        b = a ^ b;
+        a = a ^ b;
+
+        System.out.println(a);
+        System.out.println("***");
+        System.out.println(b);
+
+
+    }
+
+    HashMap<String, Integer> initWordFrequencies(String[] book) {
+        HashMap<String, Integer> hasi = new HashMap<>();
+        if (book.length == 0)
+            return hasi;
+        for (int i = 0; i < book.length; i++) {
+            if (!hasi.containsKey(book[i].toLowerCase()))
+                hasi.put(book[i], 1);
+            else {
+                int oldCount = hasi.get(book[i]);
+                hasi.put(book[i], oldCount + 1);
+            }
+        }
+        return hasi;
+    }
+
+    int WordFrequencies(HashMap<String , Integer> hasi , String word)
+    {
+        if (!hasi.containsKey(word.toLowerCase()))
+            return 0;
+        return (hasi.get(word.toLowerCase()));
+    }
+
 }
 
